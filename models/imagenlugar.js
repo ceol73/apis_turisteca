@@ -1,32 +1,38 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class ImagenLugar extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
-      ImagenLugar.belongsTo(models.Lugar, {
-        foreignKey: "idLugar",
-        onDelete: "CASCADE",
-      });
-
-      ImagenLugar.belongsTo(models.ImagenURL, {
-        foreignKey: "idImagen",
-        onDelete: "CASCADE",
-      });
+      this.belongsTo(models.Lugar, { foreignKey: 'idLugar' });
+      this.belongsTo(models.ImagenURL, { foreignKey: 'idImagen' });
     }
   }
-  ImagenLugar.init({
-    idLugar: DataTypes.INTEGER,
-    idImagen: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'ImagenLugar',
-  });
+  ImagenLugar.init(
+    {
+      idLugar: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'lugar',
+          key: 'id',
+        },
+      },
+      idImagen: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'imagenURL',
+          key: 'id',
+        },
+      },
+    },
+    {
+      sequelize,
+      modelName: 'ImagenLugar',
+      tableName: 'imagenLugar',
+      timestamps: false,
+    }
+  );
   return ImagenLugar;
 };

@@ -1,35 +1,48 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class Post extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
-      Post.belongsTo(models.User, { foreignKey: "idUser", onDelete: "CASCADE" });
-
-      Post.belongsToMany(models.ImagenURL, {
-        through: models.ImagenPost,
-        foreignKey: "idPost",
-        onDelete: "CASCADE",
-      });
-
-      Post.hasMany(models.Comentario, { foreignKey: "idPost", onDelete: "CASCADE" });
-
-      Post.hasMany(models.ReaccionesPost, { foreignKey: "idPost", onDelete: "CASCADE" });
+      this.belongsTo(models.Usuario, { foreignKey: 'idUsuario' });
+      this.hasMany(models.Comentarios, { foreignKey: 'idPost' });
+      this.hasMany(models.ReaccionesPost, { foreignKey: 'idPost' });
+      this.hasMany(models.ImagenPost, { foreignKey: 'idPost' });
     }
   }
-  Post.init({
-    contenido: DataTypes.TEXT,
-    idImagen: DataTypes.INTEGER,
-    idUser: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'Post',
-  });
+  Post.init(
+    {
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+        allowNull: false,
+      },
+      contenido: {
+        type: DataTypes.TEXT,
+      },
+      idImagen: {
+        type: DataTypes.INTEGER,
+      },
+      idUsuario: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'usuario',
+          key: 'id',
+        },
+      },
+      creado_en: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
+    },
+    {
+      sequelize,
+      modelName: 'Post',
+      tableName: 'post',
+      timestamps: false,
+    }
+  );
   return Post;
 };

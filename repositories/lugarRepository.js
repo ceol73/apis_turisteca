@@ -1,25 +1,33 @@
-const Lugar = require("../models/lugar");
+const { Lugar, Categoria, Viaje, ImagenLugar } = require('../models');
 
-class LugarRepository{
-    async create(lugarData){
-        return await Lugar.create(lugarData);
-    }
+const LugarRepository = {
+  async create(data) {
+    return await Lugar.create(data);
+  },
 
-    async findById(id){
-        return await Lugar.findByPk(id);
-    }
+  async findById(id) {
+    return await Lugar.findByPk(id, {
+      include: [Categoria, Viaje, ImagenLugar],
+    });
+  },
 
-    async findAll(){
-        return await Lugar.findAll();
-    }
+  async findAll() {
+    return await Lugar.findAll({
+      include: [Categoria, Viaje, ImagenLugar],
+    });
+  },
 
-    async update(id, lugarData){
-        return await Lugar.update(lugarData, {where: {id}});
-    }
+  async update(id, data) {
+    return await Lugar.update(data, {
+      where: { id },
+    });
+  },
 
-    async delete(id){
-        return await Lugar.destroy({where: {id}});
-    }
-}
+  async delete(id) {
+    return await Lugar.destroy({
+      where: { id },
+    });
+  },
+};
 
-module.exports = new LugarRepository();
+module.exports = LugarRepository;

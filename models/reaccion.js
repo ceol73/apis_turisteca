@@ -1,31 +1,31 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class Reaccion extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
-      Reaccion.hasMany(models.ReaccionesPost, {
-        foreignKey: "reaccionTipo",
-        onDelete: "CASCADE",
-      });
-
-      Reaccion.hasMany(models.ReaccionesComentarios, {
-        foreignKey: "reaccionTipo",
-        onDelete: "CASCADE",
-      });
+      // Define associations here
     }
   }
-  Reaccion.init({
-    nombre: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'Reaccion',
-  });
+  Reaccion.init(
+    {
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+        allowNull: false,
+      },
+      nombre: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+    },
+    {
+      sequelize,
+      modelName: 'Reaccion',
+      tableName: 'reaccion',
+      timestamps: false,
+    }
+  );
   return Reaccion;
 };

@@ -1,25 +1,39 @@
-const Follows = require('../models/follows');
+const { Follows, Usuario } = require('../models');
 
-class FollowsRepository{
-    async create(followsData){
-        return await Follows.create(followsData);
-    }
+const FollowsRepository = {
+  async create(data) {
+    return await Follows.create(data);
+  },
 
-    async findById(idSeguidor, idSeguido){
-        return await Follows.findByPk({idSeguidor, idSeguido});
-    }
+  async findById(id) {
+    return await Follows.findByPk(id, {
+      include: [
+        { model: Usuario, as: 'Seguidor', foreignKey: 'idSeguidor' },
+        { model: Usuario, as: 'Seguido', foreignKey: 'idSeguido' },
+      ],
+    });
+  },
 
-    async findAll(idSeguido){
-        return await Follows.findAll(idSeguido);
-    }
+  async findAll() {
+    return await Follows.findAll({
+      include: [
+        { model: Usuario, as: 'Seguidor', foreignKey: 'idSeguidor' },
+        { model: Usuario, as: 'Seguido', foreignKey: 'idSeguido' },
+      ],
+    });
+  },
 
-    async update(idSeguidor, idSeguido, followsData){
-        return await Follows.update(followsData, {where: {idSeguidor, idSeguido}});
-    }
+  async update(id, data) {
+    return await Follows.update(data, {
+      where: { id },
+    });
+  },
 
-    async delete(id){
-        return await Follows.destroy({where: {idSeguidor, idSeguido}});
-    }
-}
+  async delete(id) {
+    return await Follows.destroy({
+      where: { id },
+    });
+  },
+};
 
-module.exports = new FollowsRepository();
+module.exports = FollowsRepository;
