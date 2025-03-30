@@ -1,51 +1,73 @@
 const ImagenURLRepository = require('../repositories/imagenURLRepository');
+const { body, validationResult } = require('express-validator');
+const APIresponse = require('../middlewares/APIresponse');
 
 const ImagenURLController = {
   async create(req, res) {
+    await body('imagenURL').isString().notEmpty().run(req);
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return new APIresponse(false, 'Validation errors', errors.array(), res, 400).send();
+    }
+
     try {
       const imagenURL = await ImagenURLRepository.create(req.body);
-      res.status(201).json(imagenURL);
+      new APIresponse(true, 'ImagenURL created successfully', imagenURL, res, 201).send();
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      new APIresponse(false, error.message, null, res, 500).send();
     }
   },
 
   async findById(req, res) {
     try {
       const imagenURL = await ImagenURLRepository.findById(req.params.id);
-      if (!imagenURL) return res.status(404).json({ error: 'ImagenURL not found' });
-      res.json(imagenURL);
+      if (!imagenURL) {
+        return new APIresponse(false, 'ImagenURL not found', null, res, 404).send();
+      }
+      new APIresponse(true, 'ImagenURL found', imagenURL, res).send();
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      new APIresponse(false, error.message, null, res, 500).send();
     }
   },
 
   async findAll(req, res) {
     try {
       const imagenesURL = await ImagenURLRepository.findAll();
-      res.json(imagenesURL);
+      new APIresponse(true, 'ImagenesURL retrieved successfully', imagenesURL, res).send();
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      new APIresponse(false, error.message, null, res, 500).send();
     }
   },
 
   async update(req, res) {
+    await body('imagenURL').isString().notEmpty().run(req);
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return new APIresponse(false, 'Validation errors', errors.array(), res, 400).send();
+    }
+
     try {
       const [updated] = await ImagenURLRepository.update(req.params.id, req.body);
-      if (!updated) return res.status(404).json({ error: 'ImagenURL not found' });
-      res.json({ message: 'ImagenURL updated successfully' });
+      if (!updated) {
+        return new APIresponse(false, 'ImagenURL not found', null, res, 404).send();
+      }
+      new APIresponse(true, 'ImagenURL updated successfully', null, res).send();
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      new APIresponse(false, error.message, null, res, 500).send();
     }
   },
 
   async delete(req, res) {
     try {
       const deleted = await ImagenURLRepository.delete(req.params.id);
-      if (!deleted) return res.status(404).json({ error: 'ImagenURL not found' });
-      res.json({ message: 'ImagenURL deleted successfully' });
+      if (!deleted) {
+        return new APIresponse(false, 'ImagenURL not found', null, res, 404).send();
+      }
+      new APIresponse(true, 'ImagenURL deleted successfully', null, res).send();
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      new APIresponse(false, error.message, null, res, 500).send();
     }
   },
 };

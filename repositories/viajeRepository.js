@@ -6,9 +6,7 @@ const ViajeRepository = {
   },
 
   async findById(id) {
-    return await Viaje.findByPk(id, {
-      include: [Usuario, Lugar],
-    });
+    return await Viaje.findByPk(id);
   },
 
   async findAll() {

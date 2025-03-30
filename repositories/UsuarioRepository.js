@@ -6,15 +6,11 @@ const UsuarioRepository = {
   },
 
   async findById(id) {
-    return await Usuario.findByPk(id, {
-      include: [Post, Viaje, Follows, Comentarios],
-    });
+    return await Usuario.findByPk(id);
   },
 
   async findAll() {
-    return await Usuario.findAll({
-      include: [Post, Viaje, Follows, Comentarios],
-    });
+    return await Usuario.findAll();
   },
 
   async update(id, data) {
@@ -27,6 +23,10 @@ const UsuarioRepository = {
     return await Usuario.destroy({
       where: { id },
     });
+  },
+
+  async findByUsername(username) {
+    return await Usuario.findOne({ where: { username } });
   },
 };
 

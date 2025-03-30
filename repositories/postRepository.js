@@ -6,15 +6,11 @@ const PostRepository = {
   },
 
   async findById(id) {
-    return await Post.findByPk(id, {
-      include: [Usuario, Comentarios, ReaccionesPost, ImagenPost],
-    });
+    return await Post.findByPk(id);
   },
 
   async findAll() {
-    return await Post.findAll({
-      include: [Usuario, Comentarios, ReaccionesPost, ImagenPost],
-    });
+    return await Post.findAll();
   },
 
   async update(id, data) {

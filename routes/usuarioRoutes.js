@@ -8,5 +8,7 @@ router.get('/:id', UsuarioController.findById);
 router.get('/', UsuarioController.findAll);
 router.put('/:id', UsuarioController.update);
 router.delete('/:id', UsuarioController.delete);
+router.post('/login', UsuarioController.login);
+router.post('/logout', UsuarioController.logout);
 
 module.exports = router;

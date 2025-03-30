@@ -6,15 +6,11 @@ const LugarRepository = {
   },
 
   async findById(id) {
-    return await Lugar.findByPk(id, {
-      include: [Categoria, Viaje, ImagenLugar],
-    });
+    return await Lugar.findByPk(id);
   },
 
   async findAll() {
-    return await Lugar.findAll({
-      include: [Categoria, Viaje, ImagenLugar],
-    });
+    return await Lugar.findAll();
   },
 
   async update(id, data) {

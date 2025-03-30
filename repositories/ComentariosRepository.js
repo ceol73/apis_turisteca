@@ -6,15 +6,11 @@ const ComentariosRepository = {
   },
 
   async findById(id) {
-    return await Comentarios.findByPk(id, {
-      include: [Usuario, Post],
-    });
+    return await Comentarios.findByPk(id);
   },
 
   async findAll() {
-    return await Comentarios.findAll({
-      include: [Usuario, Post],
-    });
+    return await Comentarios.findAll();
   },
 
   async update(id, data) {
