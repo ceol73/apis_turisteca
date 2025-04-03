@@ -1,4 +1,4 @@
-const ViajeRepository = require('../repositories/viajeRepository');
+const ViajeRepository = require('../repositories/ViajeRepository');
 const { body, validationResult } = require('express-validator');
 const APIresponse = require('../middlewares/APIresponse');
 

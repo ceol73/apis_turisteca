@@ -1,4 +1,4 @@
-const FollowsRepository = require('../repositories/followsRepository');
+const FollowsRepository = require('../repositories/FollowsRepository');
 const { body, validationResult } = require('express-validator');
 const APIresponse = require('../middlewares/APIresponse');
 

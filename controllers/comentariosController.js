@@ -1,4 +1,4 @@
-const ComentariosRepository = require('../repositories/comentariosRepository');
+const ComentariosRepository = require('../repositories/ComentariosRepository');
 const { body, validationResult } = require('express-validator');
 const APIresponse = require('../middlewares/APIresponse');
 
