@@ -1,4 +1,4 @@
-const ImagenLugarRepository = require('../repositories/imagenLugarRepository');
+const ImagenLugarRepository = require('../repositories/ImagenLugarRepository');
 const { body, validationResult } = require('express-validator');
 const APIresponse = require('../middlewares/APIresponse');
 
