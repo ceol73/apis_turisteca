@@ -1,4 +1,4 @@
-const PostRepository = require('../repositories/PostRepository');
+const PostRepository = require('../repositories/PostRepository.js'); // Added .js extension
 const { body, validationResult } = require('express-validator');
 const APIresponse = require('../middlewares/APIresponse');
 
