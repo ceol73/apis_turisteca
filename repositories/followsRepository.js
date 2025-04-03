@@ -1,4 +1,4 @@
-const { Follows, Usuario } = require('../models');
+const { Follows } = require('../models');
 
 const FollowsRepository = {
   async create(data) {

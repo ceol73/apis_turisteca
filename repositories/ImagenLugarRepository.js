@@ -1,4 +1,4 @@
-const { ImagenLugar, Lugar, ImagenURL } = require('../models');
+const { ImagenLugar } = require('../models');
 
 const ImagenLugarRepository = {
   async create(data) {

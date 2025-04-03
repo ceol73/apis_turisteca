@@ -1,4 +1,4 @@
-const { ImagenURL, ImagenLugar, ImagenPost } = require('../models');
+const { ImagenURL } = require('../models');
 
 const ImagenURLRepository = {
   async create(data) {
@@ -6,15 +6,11 @@ const ImagenURLRepository = {
   },
 
   async findById(id) {
-    return await ImagenURL.findByPk(id, {
-      include: [ImagenLugar, ImagenPost],
-    });
+    return await ImagenURL.findByPk(id);
   },
 
   async findAll() {
-    return await ImagenURL.findAll({
-      include: [ImagenLugar, ImagenPost],
-    });
+    return await ImagenURL.findAll();
   },
 
   async update(id, data) {

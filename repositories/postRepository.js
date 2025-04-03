@@ -1,4 +1,4 @@
-const { Post, Usuario, Comentarios, ReaccionesPost, ImagenPost } = require('../models');
+const { Post } = require('../models');
 
 const PostRepository = {
   async create(data) {

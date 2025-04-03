@@ -1,4 +1,4 @@
-const { ImagenPost, Post, ImagenURL } = require('../models');
+const { ImagenPost } = require('../models');
 
 const ImagenPostRepository = {
   async create(data) {

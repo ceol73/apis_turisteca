@@ -1,4 +1,4 @@
-const { Lugar, Categoria, Viaje, ImagenLugar } = require('../models');
+const { Lugar } = require('../models');
 
 const LugarRepository = {
   async create(data) {

@@ -1,4 +1,4 @@
-const { UsuarioDetalles, Usuario, ImagenURL } = require('../models');
+const { UsuarioDetalles } = require('../models');
 
 const UsuarioDetallesRepository = {
     async create(data) {
@@ -6,15 +6,11 @@ const UsuarioDetallesRepository = {
     },
 
     async findById(id) {
-        return await UsuarioDetalles.findByPk(id, {
-            include: [Usuario, ImagenURL],
-        });
+        return await UsuarioDetalles.findByPk(id);
     },
 
     async findAll() {
-        return await UsuarioDetalles.findAll({
-            include: [Usuario, ImagenURL],
-        });
+        return await UsuarioDetalles.findAll();
     },
 
     async update(id, data) {

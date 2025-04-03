@@ -1,4 +1,4 @@
-const { ReaccionesPost, Post } = require('../models');
+const { ReaccionesPost } = require('../models');
 
 const ReaccionesPostRepository = {
   async create(data) {
@@ -6,15 +6,11 @@ const ReaccionesPostRepository = {
   },
 
   async findById(id) {
-    return await ReaccionesPost.findByPk(id, {
-      include: [Post],
-    });
+    return await ReaccionesPost.findByPk(id);
   },
 
   async findAll() {
-    return await ReaccionesPost.findAll({
-      include: [Post],
-    });
+    return await ReaccionesPost.findAll();
   },
 
   async update(id, data) {

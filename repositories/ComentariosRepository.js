@@ -1,4 +1,4 @@
-const { Comentarios, Usuario, Post } = require('../models');
+const { Comentarios } = require('../models');
 
 const ComentariosRepository = {
   async create(data) {

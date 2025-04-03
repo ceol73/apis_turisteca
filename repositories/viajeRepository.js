@@ -1,4 +1,4 @@
-const { Viaje, Usuario, Lugar } = require('../models');
+const { Viaje } = require('../models');
 
 const ViajeRepository = {
   async create(data) {
@@ -10,9 +10,7 @@ const ViajeRepository = {
   },
 
   async findAll() {
-    return await Viaje.findAll({
-      include: [Usuario, Lugar],
-    });
+    return await Viaje.findAll();
   },
 
   async update(id, data) {
