@@ -28,6 +28,14 @@ const UsuarioRepository = {
   async findByUsername(username) {
     return await Usuario.findOne({ where: { username } });
   },
+
+  async saveRefreshToken(id, refreshToken) {
+    return await Usuario.update({ refresh_token: refreshToken }, { where: { id } });
+  },
+
+  async revokeRefreshToken(refreshToken) {
+    return await Usuario.update({ refresh_token: null }, { where: { refresh_token: refreshToken } });
+  },
 };
 
 module.exports = UsuarioRepository;

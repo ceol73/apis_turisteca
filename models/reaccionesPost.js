@@ -5,6 +5,7 @@ module.exports = (sequelize, DataTypes) => {
   class ReaccionesPost extends Model {
     static associate(models) {
       this.belongsTo(models.Post, { foreignKey: 'idPost' });
+      this.belongsTo(models.Reaccion, { foreignKey: 'reaccionTipo' });
     }
   }
   ReaccionesPost.init(

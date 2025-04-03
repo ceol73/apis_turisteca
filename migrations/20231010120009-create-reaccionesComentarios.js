@@ -3,29 +3,39 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('reaccionesComentarios', {
-      idComPost: {
+      idPost: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: {
-          model: 'comentarios',
-          key: 'idPost',
-        },
       },
-      idComUser: {
+      idUsuario: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: {
-          model: 'comentarios',
-          key: 'idUsuario',
-        },
       },
       reaccionTipo: {
         type: Sequelize.INTEGER,
         allowNull: false,
+        references: {
+          model: 'reaccion',
+          key: 'id',
+        },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       },
       creado_en: {
         type: Sequelize.DATE,
       },
+    });
+
+    await queryInterface.addConstraint('reaccionesComentarios', {
+      fields: ['idPost', 'idUsuario'],
+      type: 'foreign key',
+      name: 'fk_reaccionesComentarios_comentarios',
+      references: {
+        table: 'comentarios',
+        fields: ['idPost', 'idUsuario'],
+      },
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
     });
   },
 

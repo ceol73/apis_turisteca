@@ -4,8 +4,8 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class ImagenURL extends Model {
     static associate(models) {
-      this.hasMany(models.ImagenLugar, { foreignKey: 'idImagen' });
-      this.hasMany(models.ImagenPost, { foreignKey: 'idImagen' });
+      this.hasMany(models.ImagenLugar, { foreignKey: 'idImagen', onDelete: 'CASCADE' });
+      this.hasMany(models.ImagenPost, { foreignKey: 'idImagen', onDelete: 'CASCADE' });
     }
   }
   ImagenURL.init(

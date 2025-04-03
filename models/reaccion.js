@@ -5,6 +5,8 @@ module.exports = (sequelize, DataTypes) => {
   class Reaccion extends Model {
     static associate(models) {
       // Define associations here
+      this.hasMany(models.ReaccionesPost, { foreignKey: 'reaccionTipo' });
+      this.hasMany(models.ReaccionesComentarios, { foreignKey: 'reaccionTipo' });
     }
   }
   Reaccion.init(

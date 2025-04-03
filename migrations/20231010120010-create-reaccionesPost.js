@@ -14,6 +14,12 @@ module.exports = {
       reaccionTipo: {
         type: Sequelize.INTEGER,
         allowNull: false,
+        references: {
+          model: 'reaccion',
+          key: 'id',
+        },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       },
       creado_en: {
         type: Sequelize.DATE,

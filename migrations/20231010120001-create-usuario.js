@@ -27,6 +27,9 @@ module.exports = {
         type: Sequelize.STRING,
         unique: true,
       },
+      refresh_token: {
+        type: Sequelize.STRING,
+      },
     });
   },
 

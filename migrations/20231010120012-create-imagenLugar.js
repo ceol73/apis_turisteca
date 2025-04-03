@@ -10,6 +10,8 @@ module.exports = {
           model: 'lugar',
           key: 'id',
         },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       },
       idImagen: {
         type: Sequelize.INTEGER,
@@ -18,6 +20,8 @@ module.exports = {
           model: 'imagenURL',
           key: 'id',
         },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       },
     });
   },

@@ -6,6 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       this.belongsTo(models.Comentarios, { foreignKey: 'idComPost' });
       this.belongsTo(models.Comentarios, { foreignKey: 'idComUser' });
+      this.belongsTo(models.Reaccion, { foreignKey: 'reaccionTipo' });
     }
   }
   ReaccionesComentarios.init(

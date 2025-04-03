@@ -87,39 +87,41 @@ const UsuarioController = {
     const { username, password } = req.body;
 
     try {
-        console.log('Login attempt:', { username }); // Log del intento de login
+      console.log('Login attempt:', { username }); // Log del intento de login
 
-        const usuario = await UsuarioRepository.findByUsername(username);
-        console.log('Usuario encontrado:', usuario); // Log del usuario encontrado
+      const usuario = await UsuarioRepository.findByUsername(username);
+      console.log('Usuario encontrado:', usuario); // Log del usuario encontrado
 
-        if (!usuario) {
-            console.log('Usuario no encontrado');
-            return new APIresponse(false, 'Credenciales inválidas', null, res, 401).send();
-        }
+      if (!usuario) {
+        console.log('Usuario no encontrado');
+        return new APIresponse(false, 'Credenciales inválidas', null, res, 401).send();
+      }
 
-        const passwordMatch = await bcrypt.compare(password, usuario.password);
-        console.log('Comparación de contraseñas:', passwordMatch); // Log del resultado de la comparación
+      const passwordMatch = await bcrypt.compare(password, usuario.password);
+      console.log('Comparación de contraseñas:', passwordMatch); // Log del resultado de la comparación
 
-        if (!passwordMatch) {
-            return new APIresponse(false, 'Credenciales inválidas', null, res, 401).send();
-        }
+      if (!passwordMatch) {
+        return new APIresponse(false, 'Credenciales inválidas', null, res, 401).send();
+      }
 
-        const accessToken = jwt.sign(
-            { id: usuario.id, username: usuario.username },
-            process.env.JWT_SECRET,
-            { expiresIn: '1h' }
-        );
+      const accessToken = jwt.sign(
+        { id: usuario.id, username: usuario.username },
+        process.env.JWT_SECRET,
+        { expiresIn: '1h' }
+      );
 
-        const refreshToken = jwt.sign(
-            { id: usuario.id, username: usuario.username },
-            process.env.JWT_REFRESH_SECRET,
-            { expiresIn: '7d' }
-        );
+      const refreshToken = jwt.sign(
+        { id: usuario.id, username: usuario.username },
+        process.env.JWT_REFRESH_SECRET,
+        { expiresIn: '7d' }
+      );
 
-        new APIresponse(true, 'Login successful', { accessToken, refreshToken }, res).send();
+      await UsuarioRepository.saveRefreshToken(usuario.id, refreshToken);
+
+      new APIresponse(true, 'Login successful', { accessToken, refreshToken }, res).send();
     } catch (error) {
-        console.error('Error en login:', error); // Log del error
-        new APIresponse(false, error.message, null, res, 500).send();
+      console.error('Error en login:', error); // Log del error
+      new APIresponse(false, error.message, null, res, 500).send();
     }
   },
 
@@ -130,9 +132,7 @@ const UsuarioController = {
       if (!refreshToken) {
         return new APIresponse(false, 'Refresh token is required', null, res, 400).send();
       }
-
-      // Revoke the refresh token (implementation not shown)
-      // Example: await UsuarioRepository.revokeRefreshToken(refreshToken);
+      await UsuarioRepository.revokeRefreshToken(refreshToken);
 
       new APIresponse(true, 'Logout successful', null, res).send();
     } catch (error) {

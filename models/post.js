@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsTo(models.Usuario, { foreignKey: 'idUsuario' });
       this.hasMany(models.Comentarios, { foreignKey: 'idPost' });
       this.hasMany(models.ReaccionesPost, { foreignKey: 'idPost' });
-      this.hasMany(models.ImagenPost, { foreignKey: 'idPost' });
+      this.hasMany(models.ImagenPost, { foreignKey: 'idPost', onDelete: 'CASCADE' });
     }
   }
   Post.init(
