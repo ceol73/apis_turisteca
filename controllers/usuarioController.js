@@ -87,10 +87,7 @@ const UsuarioController = {
     const { username, password } = req.body;
 
     try {
-      console.log('Login attempt:', { username }); // Log del intento de login
-
       const usuario = await UsuarioRepository.findByUsername(username);
-      console.log('Usuario encontrado:', usuario); // Log del usuario encontrado
 
       if (!usuario) {
         console.log('Usuario no encontrado');
@@ -98,7 +95,6 @@ const UsuarioController = {
       }
 
       const passwordMatch = await bcrypt.compare(password, usuario.password);
-      console.log('Comparación de contraseñas:', passwordMatch); // Log del resultado de la comparación
 
       if (!passwordMatch) {
         return new APIresponse(false, 'Credenciales inválidas', null, res, 401).send();

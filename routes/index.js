@@ -1,16 +1,16 @@
 const express = require('express');
 const auth = require('../middlewares/auth');
 const usuarioRoutes = require('./usuarioRoutes');
-const postRoutes = require('./postRoutes');
+const lugarRoutes = require('./lugarRoutes');
+const viajeRoutes = require('./viajeRoutes');
 const followsRoutes = require('./followsRoutes');
+const postRoutes = require('./postRoutes');
+const comentariosRoutes = require('./comentariosRoutes');
+const imagenURLRoutes = require('./imagenURLRoutes');
 const imagenLugarRoutes = require('./imagenLugarRoutes');
 const imagenPostRoutes = require('./imagenPostRoutes');
-const imagenURLRoutes = require('./imagenURLRoutes');
-const lugarRoutes = require('./lugarRoutes');
 const reaccionesComentariosRoutes = require('./reaccionesComentariosRoutes');
 const reaccionesPostRoutes = require('./reaccionesPostRoutes');
-const viajeRoutes = require('./viajeRoutes');
-const comentariosRoutes = require('./comentariosRoutes');
 
 const router = express.Router();
 

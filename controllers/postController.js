@@ -1,5 +1,4 @@
 const PostRepository = require('../repositories/PostRepository');
-console.log('Resolved path for PostRepository:', require.resolve('../repositories/PostRepository'));
 const { body, validationResult } = require('express-validator');
 const APIresponse = require('../middlewares/APIresponse');
 
