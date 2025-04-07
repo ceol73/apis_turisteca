@@ -26,6 +26,6 @@
     "sequelize-cli": "^6.6.2"
   },
   "engines": {
-    "node": ">=v22"
+    "node": ">=v16.0.0"
   }
 }
