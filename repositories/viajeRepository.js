@@ -1,4 +1,4 @@
-const { Viaje } = require('../models');
+const { Viaje } = require('../models/viaje');
 
 const ViajeRepository = {
   async create(data) {
